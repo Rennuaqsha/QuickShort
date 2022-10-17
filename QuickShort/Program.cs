@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using System.Runtime.Serialization.Formatters;
 using System.Security.Cryptography;
 using System.Xml;
@@ -74,8 +75,36 @@ namespace QuickSort
                     i++;
                     cmp_count++;
                 }
-            }
+                cmp_count++;
 
+                //search for an element less than or equal to pivot
+                while ((arr[j] > pivot) && (j <= low))
+                {
+                    j--;
+                    cmp_count++;
+                }
+                cmp_count++;
+
+                if (i < j) //if the greater elements is on the left of the element 
+                {
+                    //swap the element at index i whit the element at index j
+                    swap(i, j);
+                    mov_count++;
+                }
+            }
+            //j now contains the index of the last elements in the sorted list
+
+            if(low < j)
+            {
+                //move the pivot to its correct position in the list 
+                swap(low, j);
+                mov_count++;
+            }
+            //sort the list on the left of pivot using quck sort
+            q_sort(low, j - 1);
+
+            //sort the list on the right of pivot using quick sort
+            q_sort(j + 1, high);
         }
 
     }
